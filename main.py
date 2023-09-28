@@ -56,20 +56,20 @@ class App(ctk.CTk):
         if event.widget == self: #! prevents calling configure on every widget, this ensures only the main window is applied
             
             #* WIDTH
-            if self.full_width_bool.get(): #! if window width > 600 px, check if the width becomes smaller or equal to 600
+            if self.full_width_bool.get(): #! if window width > 1000 px, check if the width becomes smaller or equal to 1000
                 if event.width < self.width_break:
                     self.full_width_bool.set(False)
             
-            else: #! window width < 600 px, check if the width becomes bigger or equal to 600
+            else: #! window width < 1000 px, check if the width becomes bigger or equal to 1000
                 if event.width > self.width_break:
                     self.full_width_bool.set(True)
 
             #* HEIGHT
-            if self.full_height_bool.get(): #! if window height > 1000 px
+            if self.full_height_bool.get(): #! if window height > 600 px
                 if event.height < self.height_break:
                     self.full_height_bool.set(False)
             
-            else: #! window height < 1000 px 
+            else: #! window height < 600 px 
                 if event.height > self.height_break:
                     self.full_height_bool.set(True)
 

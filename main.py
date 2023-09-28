@@ -31,7 +31,9 @@ class App(ctk.CTk):
         self.width_break = 1000
         self.full_height_bool = ctk.BooleanVar(value = False) #! checks if window size exceeds the height break of 600px
         self.full_width_bool = ctk.BooleanVar(value = False)  #! Check width break
-        self.configure('<Configure>', self.check_size)
+        self.bind('<Configure>', self.check_size)
+        self.full_width_bool.trace('w', self.change_size)
+        self.full_height_bool.trace('w', self.change_size)
 
 
 
@@ -52,17 +54,42 @@ class App(ctk.CTk):
     def check_size(self, event):
         if event.widget == self: #! prevents calling configure on every widget, this ensures only the main window is applied
             
+            #* WIDTH
             if self.full_width_bool.get(): #! if window width > 600 px
-                
                 if event.width < self.width_break:
                     self.full_width_bool.set(False)
             
-            else: #! window < 600 px wide
+            else: #! window width < 600 px 
                 if event.width > self.width_break:
                     self.full_width_bool.set(True)
+
+            #* HEIGHT
+            if self.full_height_bool.get(): #! if window height > 1000 px
+                if event.height < self.height_break:
+                    self.full_height_bool.set(False)
             
+            else: #! window height < 1000 px 
+                if event.height > self.height_break:
+                    self.full_height_bool.set(True)
 
+    def change_size(self, *args):
+        self.widget.pack_forget()
+        
+        #* MAX WIDGET
+        if self.full_height_bool.get() and self.full_width_bool.get():
+            self.widget = MaxWidget(self)
+        
+        #* TALL WIDGET
+        if self.full_height_bool.get() and not self.full_width_bool.get():
+            self.widget = TallWidget(self)
 
+        #* WIDE WIDGET
+        if not self.full_height_bool.get() and self.full_width_bool.get():
+            self.widget = WideWidget(self)
+
+        #* SMALL WIDGET
+        if not self.full_height_bool.get() and not self.full_width_bool.get():
+            self.widget = SmallWidget(self)
 
 
 

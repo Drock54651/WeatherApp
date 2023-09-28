@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from settings import *
+from main_widgets import *
 try:
     from ctypes import windll, byref, sizeof, c_int
 
@@ -21,6 +22,17 @@ class App(ctk.CTk):
         self.title('')
         
 
+        #* START WIDGET
+        self.widget = SmallWidget(self)
+
+
+        #* STATES
+        self.height_break = 600
+        self.width_break = 1000
+        self.full_height_bool = ctk.BooleanVar(value = False) #! checks if window size exceeds the height break of 600px
+        self.full_width_bool = ctk.BooleanVar(value = False)  #! Check width break
+        self.configure('<Configure>', self.check_size)
+
 
 
         #* RUN
@@ -35,6 +47,24 @@ class App(ctk.CTk):
 
         except:
             pass
+
+
+    def check_size(self, event):
+        if event.widget == self: #! prevents calling configure on every widget, this ensures only the main window is applied
+            
+            if self.full_width_bool.get(): #! if window width > 600 px
+                
+                if event.width < self.width_break:
+                    self.full_width_bool.set(False)
+            
+            else: #! window < 600 px wide
+                if event.width > self.width_break:
+                    self.full_width_bool.set(True)
+            
+
+
+
+
 
 if __name__ == '__main__':
     App()

@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     #* WEATHER INFO
     current_data = get_weather(latitude, longitude, 'imperial', 'today')
-    # forecast_data = get_weather(latitude, longitude, 'imperial', 'forecast')
-    # print(forecast_data)
+    forecast_data = get_weather(latitude, longitude, 'imperial', 'forecast')
+    print(forecast_data)
 
     App()

@@ -6,6 +6,8 @@ from main_widgets import *
 import urllib.request
 import json
 
+#* WEATHER
+from weather_data import get_weather
 
 try:
     from ctypes import windll, byref, sizeof, c_int
@@ -109,8 +111,10 @@ if __name__ == '__main__':
         country = data['country_name']
         latitude = data['latitude']
         longitude = data['longitude']
-        
 
-
+    #* WEATHER INFO
+    current_data = get_weather(latitude, longitude, 'imperial', 'today')
+    # forecast_data = get_weather(latitude, longitude, 'imperial', 'forecast')
+    # print(forecast_data)
 
     App()

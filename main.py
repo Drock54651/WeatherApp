@@ -1,6 +1,12 @@
 import customtkinter as ctk
 from settings import *
 from main_widgets import *
+
+#* URL request
+import urllib.request
+import json
+
+
 try:
     from ctypes import windll, byref, sizeof, c_int
 
@@ -95,4 +101,16 @@ class App(ctk.CTk):
 
 
 if __name__ == '__main__':
+
+    #*LOCATION
+    with urllib.request.urlopen("https://ipapi.co/json/") as url:
+        data = json.loads(url.read().decode())
+        city = data['city']
+        country = data['country_name']
+        latitude = data['latitude']
+        longitude = data['longitude']
+        
+
+
+
     App()

@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import datetime, calendar
 
 class SimplePanel(ctk.CTkFrame):
     def __init__(self, parent, weather, row, col, color):
@@ -34,4 +35,23 @@ class DatePanel(ctk.CTkFrame):
                      text_color = color['text']).pack(side = 'left')
         
         location_frame.pack(side = 'left', padx = 10)
+
         #* DATE
+        day, weekday, suffix, month = get_time_info()
+        ctk.CTkLabel(self, 
+                     text = f'{weekday[:3]}, {day}{suffix} {calendar.month_name[month]}',
+                     font  = ctk.CTkFont(family = 'Calibri', size = 20),
+                     text_color = color['text']).pack(side = 'right', padx = 10)
+
+def get_time_info():
+    day = datetime.datetime.today().day 
+    month = datetime.datetime.today().month 
+    weekday = calendar.day_name[datetime.datetime.today().weekday()]
+
+    match day % 10:
+        case 1: suffix  = 'st'
+        case 2: suffix  = 'nd'
+        case 3: suffix = 'rd'
+        case _: suffix = 'th'
+
+    return day, weekday, suffix, month

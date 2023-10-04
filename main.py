@@ -17,9 +17,12 @@ except:
 
 
 class App(ctk.CTk):
-    def __init__(self):
+    def __init__(self, current_data, forecast_data, city, country):
 
-        self.color = WEATHER_DATA['Clear']
+        self.current_data = current_data
+        self.forcast_data = forecast_data
+        self.location = {'city': city, 'country': country}
+        self.color = WEATHER_DATA[current_data['weather']]
 
         super().__init__(fg_color = self.color['main'])
         self.change_title_bar(self.color['title'])
@@ -31,7 +34,7 @@ class App(ctk.CTk):
         
 
         #* START WIDGET
-        self.widget = SmallWidget(self)
+        self.widget = SmallWidget(self, self.current_data, self.location, self.color)
 
 
         #* STATES
@@ -115,6 +118,5 @@ if __name__ == '__main__':
     #* WEATHER INFO
     current_data = get_weather(latitude, longitude, 'imperial', 'today')
     forecast_data = get_weather(latitude, longitude, 'imperial', 'forecast')
-    print(forecast_data)
 
-    App()
+    App(current_data = current_data, forecast_data = forecast_data, city  = city, country  = country)

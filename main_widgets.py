@@ -17,6 +17,7 @@ class SmallWidget(CTkFrame):
 
         #* WIDGETS
         SimplePanel(self, current_data, 0, 0, color)
+        DatePanel(self, location, row = 1, col = 0, color = color)
 
 
 class WideWidget(CTkFrame):

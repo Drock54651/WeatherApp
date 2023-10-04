@@ -20,6 +20,7 @@ class App(ctk.CTk):
     def __init__(self, current_data, forecast_data, city, country):
 
         self.current_data = current_data
+        print(self.current_data)
         self.forcast_data = forecast_data
         self.location = {'city': city, 'country': country}
         self.color = WEATHER_DATA[current_data['weather']]
@@ -110,12 +111,14 @@ if __name__ == '__main__':
     #*LOCATION
     with urllib.request.urlopen("https://ipapi.co/json/") as url:
         data = json.loads(url.read().decode())
+        
         city = data['city']
         country = data['country_name']
         latitude = data['latitude']
         longitude = data['longitude']
 
     #* WEATHER INFO
+    #! Will return dictionary of temp, feellike, and weather
     current_data = get_weather(latitude, longitude, 'imperial', 'today')
     forecast_data = get_weather(latitude, longitude, 'imperial', 'forecast')
 

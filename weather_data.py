@@ -20,7 +20,8 @@ def get_weather(latitude, longitude, units, period):
                         current_data['feels_like'] = int(round(data_entry['main']['feels_like'],0))
                         current_data['weather'] = data_entry['weather'][0]['main']
                         today = data_entry['dt_txt'].split(' ')[0] #! dt_txt looks like 'dt_txt': '2023-09-30 09:00:00', grabs todays date
-                    else: 
+                        
+                    else: #! grabs forecast data for next 5 days
                         if data_entry['dt_txt'].split(' ')[0] != today: #! when next day occurs
                             start_index = index + 4 #! +4 for noon the next day 
                             break

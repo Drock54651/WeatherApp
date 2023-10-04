@@ -4,9 +4,16 @@ from customtkinter import CTkFrame
 #! Depending on size, layout and information shown will be different
 
 class SmallWidget(CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent, fg_color = 'red')
+    def __init__(self, parent, current_data, location, color):
+        super().__init__(parent, fg_color = 'transparent')
+
         self.pack(expand = True, fill = 'both')
+
+        #* LAYOUT
+        self.rowconfigure(0, weight = 6, uniform = 'a')
+        self.rowconfigure(1, weight = 1, uniform = 'a')
+        self.columnconfigure(0, weight = 1, uniform = 'a')
+
 
 class WideWidget(CTkFrame):
     def __init__(self, parent):

@@ -1,4 +1,5 @@
 from customtkinter import CTkFrame
+from components import *
 
 #! Accounts for resizing the window
 #! Depending on size, layout and information shown will be different
@@ -13,6 +14,9 @@ class SmallWidget(CTkFrame):
         self.rowconfigure(0, weight = 6, uniform = 'a')
         self.rowconfigure(1, weight = 1, uniform = 'a')
         self.columnconfigure(0, weight = 1, uniform = 'a')
+
+        #* WIDGETS
+        SimplePanel(self, current_data, 0, 0, color)
 
 
 class WideWidget(CTkFrame):

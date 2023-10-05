@@ -44,10 +44,19 @@ class DatePanel(ctk.CTkFrame):
                      text_color = color['text']).pack(side = 'right', padx = 10)
 
 class HorizontalForecastPanel(ctk.CTkFrame):
-    def __init__(self, parent, row, col, row_span, divider_color):
+    def __init__(self, parent, forecast_data, row, col, row_span, divider_color):
         super().__init__(parent, fg_color = '#FFF')
         self.grid(row = row, column = col, rowspan = row_span, sticky = 'news', padx = 6, pady = 6)
 
+
+        #* WIDGETS
+        for info in forecast_data.items():
+            frame = ctk.CTkFrame(self, fg_color = 'transparent')
+            year, month, day = info[0].split('-')
+            weekday = calendar.day_name[datetime.date(int(year), int(month), int(day)).weekday()][:3]
+            print(weekday)
+                                    
+            
 
 def get_time_info():
     day = datetime.datetime.today().day 

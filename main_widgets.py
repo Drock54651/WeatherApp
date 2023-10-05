@@ -34,7 +34,7 @@ class WideWidget(CTkFrame):
         #* WIDGETS
         SimplePanel(self, current_data, 0, 0, color)
         DatePanel(self, location, row = 1, col = 0, color = color)
-        HorizontalForecastPanel(self, forecast_data, 2, 0, 2, color['divider color'])
+        HorizontalForecastPanel(self, forecast_data, 0, 1, 2, color['divider color'])
 
 class TallWidget(CTkFrame):
     def __init__(self, parent):

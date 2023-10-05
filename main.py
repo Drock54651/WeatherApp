@@ -21,7 +21,7 @@ class App(ctk.CTk):
 
         self.current_data = current_data
         print(self.current_data)
-        self.forcast_data = forecast_data
+        self.forecast_data = forecast_data
         self.location = {'city': city, 'country': country}
         self.color = WEATHER_DATA[current_data['weather']]
 
@@ -98,11 +98,11 @@ class App(ctk.CTk):
 
         #* WIDE WIDGET
         if not self.full_height_bool.get() and self.full_width_bool.get():
-            self.widget = WideWidget(self)
+            self.widget = WideWidget(self, current_data = self.current_data, location = self.location, forecast_data = self.forecast_data, color = self.color)
 
         #* SMALL WIDGET
         if not self.full_height_bool.get() and not self.full_width_bool.get():
-            self.widget = SmallWidget(self)
+            self.widget = SmallWidget(self, self.current_data, self.location, self.color)
 
 
 

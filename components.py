@@ -43,6 +43,12 @@ class DatePanel(ctk.CTkFrame):
                      font  = ctk.CTkFont(family = 'Calibri', size = 20),
                      text_color = color['text']).pack(side = 'right', padx = 10)
 
+class HorizontalForecastPanel(ctk.CTkFrame):
+    def __init__(self, parent, row, col, row_span, divider_color):
+        super().__init__(parent, fg_color = '#FFF')
+        self.grid(row = row, column = col, rowspan = row_span, sticky = 'news', padx = 6, pady = 6)
+
+
 def get_time_info():
     day = datetime.datetime.today().day 
     month = datetime.datetime.today().month 

@@ -21,10 +21,20 @@ class SmallWidget(CTkFrame):
 
 
 class WideWidget(CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent, fg_color = 'blue')
+    def __init__(self, parent, current_data, forecast_data, location, color):
+        super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
 
+        #* LAYOUT
+        self.rowconfigure(0, weight = 6, uniform = 'a')
+        self.rowconfigure(1, weight = 1, uniform = 'a')
+        self.columnconfigure(0, weight = 1, uniform = 'a') 
+        self.columnconfigure(1, weight = 2, uniform = 'a') 
+
+        #* WIDGETS
+        SimplePanel(self, current_data, 0, 0, color)
+        DatePanel(self, location, row = 1, col = 0, color = color)
+        HorizontalForecastPanel(self, forecast_data, 2, 0, 2, color['divider color'])
 
 class TallWidget(CTkFrame):
     def __init__(self, parent):

@@ -50,13 +50,24 @@ class HorizontalForecastPanel(ctk.CTkFrame):
 
 
         #* WIDGETS
-        for info in forecast_data.items():
+        for index, info in enumerate(forecast_data.items()):
             frame = ctk.CTkFrame(self, fg_color = 'transparent')
             year, month, day = info[0].split('-')
             weekday = calendar.day_name[datetime.date(int(year), int(month), int(day)).weekday()][:3]
-            print(weekday)
-                                    
             
+
+            frame.columnconfigure(0, weight = 1, uniform = 'a')
+            frame.rowconfigure(0, weight = 5, uniform = 'a')
+            frame.rowconfigure(1, weight = 2, uniform = 'a')
+            frame.rowconfigure(2, weight = 1, uniform = 'a')
+                                    
+            #* WIDGETS
+            ctk.CTkLabel(frame, text = f"{info[1]['temp']}\N{DEGREE SIGN}", text_color = '#444', font = ('Calibri', 22)).grid(row = 1, column = 0, sticky = 'n')
+            ctk.CTkLabel(frame, text = weekday, text_color = '#444').grid(row = 2, column = 0)
+            frame.pack(side = 'left', expand = True, fill = 'both', padx = 5, pady = 5)
+
+            if index != len(forecast_data) - 1:
+                ctk.CTkFrame(self, fg_color = divider_color, width = 2).pack(side = 'left', fill = 'both')
 
 def get_time_info():
     day = datetime.datetime.today().day 

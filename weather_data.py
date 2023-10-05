@@ -26,7 +26,7 @@ def get_weather(latitude, longitude, units, period):
                             start_index = index + 4 #! +4 for noon the next day 
                             break
 
-        for index in range(start_index , len(data['list']), 8): #! step size of 8
+        for index in range(start_index, len(data['list']), 8): #! step size of 8
             forecast_entry = data['list'][index]
             date = forecast_entry['dt_txt'].split(' ')[0]
             forecast_data[date] = {'temp': int(round(forecast_entry['main']['temp'],0)), 

@@ -46,7 +46,7 @@ class SimpleTallPanel(ctk.CTkFrame):
         
         #* WEATHER IMAGE FRAME
         weather_image = ctk.CTkImage(Image.open(f"images/{weather_data['weather']}.png"), size = (100,100))
-        ctk.CTkLabel(self, image  = weather_image).grid(row = 1, column = 0, sticky = 'news')
+        ctk.CTkLabel(self, text = '', image  = weather_image).grid(row = 1, column = 0, sticky = 'news')
 
 
         #* TEMP FRAME
@@ -97,9 +97,9 @@ class HorizontalForecastPanel(ctk.CTkFrame):
 
         #* WIDGETS
         for index, info in enumerate(forecast_data.items()):
-            frame = ctk.CTkFrame(self, fg_color = 'transparent')
             year, month, day = info[0].split('-')
             weekday = calendar.day_name[datetime.date(int(year), int(month), int(day)).weekday()][:3]
+            frame = ctk.CTkFrame(self, fg_color = 'transparent')
             
             #* LAYOUT
             frame.columnconfigure(0, weight = 1, uniform = 'a')
@@ -114,6 +114,29 @@ class HorizontalForecastPanel(ctk.CTkFrame):
 
             if index != len(forecast_data) - 1:
                 ctk.CTkFrame(self, fg_color = divider_color, width = 2).pack(side = 'left', fill = 'both')
+
+class VerticalForecastPanel(ctk.CTkFrame):
+    def __init__(self, parent, forecast_data, row, col, divider_color):
+        super().__init__(parent, fg_color = '#FFF')
+        self.grid(row = row, column = col, sticky = 'news', padx = 6, pady = 6)
+
+        for index, info in enumerate(forecast_data.items()):
+            year, month, day = info[0].split('-')
+            weekday = calendar.day_name[datetime.date(int(year), int(month), int(day)).weekday()]
+
+            frame = ctk.CTkFrame(self, fg_color = 'transparent')
+            frame.pack(expand = True, fill = 'both', pady = 10)
+
+            #* LAYOUT
+            frame.columnconfigure((0,1,2,3), weight = 1, uniform = 'a')
+            frame.rowconfigure(0, weight = 1, uniform = 'a')
+            
+            #* WIDGETS
+            ctk.CTkLabel(frame, text = f"{info[1]['temp']}\N{DEGREE SIGN}", text_color = '#444', font = ('Calibri', 22)).grid(row = 0, column = 2, sticky = 'news')
+            ctk.CTkLabel(frame, text = weekday, text_color = '#444').grid(row = 0, column = 0, sticky = 'news')
+
+            if index != len(forecast_data) - 1:
+                ctk.CTkFrame(self, fg_color = divider_color, height = 2).pack(fill = 'x')
 
 def get_time_info():
     day = datetime.datetime.today().day 

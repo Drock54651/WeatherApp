@@ -90,7 +90,7 @@ class App(ctk.CTk):
 
         #* MAX WIDGET
         if self.full_height_bool.get() and self.full_width_bool.get():
-            self.widget = MaxWidget(self)
+            self.widget = MaxWidget(self, current_data = self.current_data, location = self.location, forecast_data = self.forecast_data, color = self.color)
         
         #* TALL WIDGET
         if self.full_height_bool.get() and not self.full_width_bool.get():

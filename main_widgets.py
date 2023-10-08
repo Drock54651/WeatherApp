@@ -51,6 +51,14 @@ class TallWidget(CTkFrame):
         SimpleTallPanel(self, current_data, location, 0, 0, color)
 
 class MaxWidget(CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent, fg_color = 'yellow')
+    def __init__(self, parent, current_data, forecast_data, location, color):
+        super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
+        
+        #* Layout
+        self.rowconfigure(0, weight = 1, uniform = 'a')
+        self.columnconfigure((0,1), weight = 1, uniform = 'a')
+
+        #* WIDGETS
+        SimpleTallPanel(self, current_data, location, 0, 0, color)
+        VerticalForecastPanel(self, forecast_data, 0, 1, color['divider color'])

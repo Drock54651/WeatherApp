@@ -23,7 +23,7 @@ def get_weather(latitude, longitude, units, period):
                         
                     else: #! grabs forecast data for next 5 days
                         if data_entry['dt_txt'].split(' ')[0] != today: #! when next day occurs
-                            start_index = index + 4 #! +4 for noon the next day 
+                            start_index = index - 4  #! +4 for noon the next day 
                             break
 
         for index in range(start_index, len(data['list']), 8): #! step size of 8

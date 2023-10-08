@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import datetime, calendar
 from PIL import Image, ImageTk
+from image_widgets import *
 class SimplePanel(ctk.CTkFrame):
     def __init__(self, parent, weather, row, col, color):
         super().__init__(parent, fg_color = color['main'], corner_radius = 0)
@@ -90,7 +91,7 @@ class DatePanel(ctk.CTkFrame):
                      text_color = color['text']).pack(side = 'right', padx = 10)
 
 class HorizontalForecastPanel(ctk.CTkFrame):
-    def __init__(self, parent, forecast_data, row, col, row_span, divider_color):
+    def __init__(self, parent, forecast_data, row, col, row_span, divider_color, forecast_images):
         super().__init__(parent, fg_color = '#FFF')
         self.grid(row = row, column = col, rowspan = row_span, sticky = 'news', padx = 6, pady = 6)
         
@@ -108,6 +109,9 @@ class HorizontalForecastPanel(ctk.CTkFrame):
             frame.rowconfigure(2, weight = 1, uniform = 'a')
                                     
             #* WIDGETS
+            weather_image = ctk.CTkImage(Image.open(f"images/{info[1]['weather']}.png"), size = (80,80))
+            ctk.CTkLabel(frame, text = '', image = weather_image).grid(row = 0, column = 0, sticky = 'news')
+            # StaticImage(frame, forecast_images[index], 0, 0)
             ctk.CTkLabel(frame, text = f"{info[1]['temp']}\N{DEGREE SIGN}", text_color = '#444', font = ('Calibri', 22)).grid(row = 1, column = 0, sticky = 'n')
             ctk.CTkLabel(frame, text = weekday, text_color = '#444').grid(row = 2, column = 0)
             frame.pack(side = 'left', expand = True, fill = 'both', padx = 5, pady = 5)
@@ -116,14 +120,13 @@ class HorizontalForecastPanel(ctk.CTkFrame):
                 ctk.CTkFrame(self, fg_color = divider_color, width = 2).pack(side = 'left', fill = 'both')
 
 class VerticalForecastPanel(ctk.CTkFrame):
-    def __init__(self, parent, forecast_data, row, col, divider_color):
+    def __init__(self, parent, forecast_data, row, col, divider_color, forecast_images):
         super().__init__(parent, fg_color = '#FFF')
         self.grid(row = row, column = col, sticky = 'news', padx = 6, pady = 6)
-
         for index, info in enumerate(forecast_data.items()):
             year, month, day = info[0].split('-')
             weekday = calendar.day_name[datetime.date(int(year), int(month), int(day)).weekday()]
-
+            
             frame = ctk.CTkFrame(self, fg_color = 'transparent')
             frame.pack(expand = True, fill = 'both', pady = 10)
 
@@ -134,6 +137,9 @@ class VerticalForecastPanel(ctk.CTkFrame):
             #* WIDGETS
             ctk.CTkLabel(frame, text = f"{info[1]['temp']}\N{DEGREE SIGN}", text_color = '#444', font = ('Calibri', 22)).grid(row = 0, column = 2, sticky = 'news')
             ctk.CTkLabel(frame, text = weekday, text_color = '#444').grid(row = 0, column = 0, sticky = 'news')
+
+            weather_image = ctk.CTkImage(Image.open(f"images/{info[1]['weather']}.png"), size = (80,80))
+            ctk.CTkLabel(frame, text = '', image = weather_image).grid(row = 0, column = 3, sticky = 'news')
 
             if index != len(forecast_data) - 1:
                 ctk.CTkFrame(self, fg_color = divider_color, height = 2).pack(fill = 'x')
@@ -150,3 +156,5 @@ def get_time_info():
         case _: suffix = 'th'
 
     return day, weekday, suffix, month
+
+

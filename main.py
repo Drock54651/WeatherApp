@@ -9,6 +9,8 @@ import json
 #* WEATHER
 from weather_data import get_weather
 
+from PIL import Image
+
 try:
     from ctypes import windll, byref, sizeof, c_int
 
@@ -24,6 +26,8 @@ class App(ctk.CTk):
         self.forecast_data = forecast_data
         self.location = {'city': city, 'country': country}
         self.color = WEATHER_DATA[current_data['weather']]
+
+        self.forecast_images = [Image.open(f"images/{info['weather']}.png") for info in self.forecast_data.values()] #! gets values of the dict
 
         super().__init__(fg_color = self.color['main'])
         self.change_title_bar(self.color['title'])
@@ -90,15 +94,30 @@ class App(ctk.CTk):
 
         #* MAX WIDGET
         if self.full_height_bool.get() and self.full_width_bool.get():
-            self.widget = MaxWidget(self, current_data = self.current_data, location = self.location, forecast_data = self.forecast_data, color = self.color)
+            self.widget = MaxWidget(self, 
+                                    current_data = self.current_data, 
+                                    location = self.location, 
+                                    forecast_data = self.forecast_data, 
+                                    color = self.color,
+                                    forecast_images = self.forecast_images)
         
         #* TALL WIDGET
         if self.full_height_bool.get() and not self.full_width_bool.get():
-            self.widget = TallWidget(self, current_data = self.current_data, location = self.location, forecast_data = self.forecast_data, color = self.color)
+            self.widget = TallWidget(self, 
+                                     current_data = self.current_data, 
+                                     location = self.location, 
+                                     forecast_data = self.forecast_data, 
+                                     color = self.color,
+                                     forecast_images = self.forecast_images)
 
         #* WIDE WIDGET
         if not self.full_height_bool.get() and self.full_width_bool.get():
-            self.widget = WideWidget(self, current_data = self.current_data, location = self.location, forecast_data = self.forecast_data, color = self.color)
+            self.widget = WideWidget(self, 
+                                     current_data = self.current_data, 
+                                     location = self.location, 
+                                     forecast_data = self.forecast_data, 
+                                     color = self.color,
+                                     forecast_images = self.forecast_images)
 
         #* SMALL WIDGET
         if not self.full_height_bool.get() and not self.full_width_bool.get():

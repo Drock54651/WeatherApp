@@ -29,7 +29,7 @@ class App(ctk.CTk):
         self.color = WEATHER_DATA[current_data['weather']]
 
         #* Today Imports
-        self.forecast_images = [Image.open(f"images/{info['weather']}.png") for info in self.forecast_data.values()] #! gets values of the dict
+        # self.forecast_images = [Image.open(f"images/{info['weather']}.png") for info in self.forecast_data.values()] #! gets values of the dict
         self.today_animation = self.import_image_folder(self.color['path'])
 
         super().__init__(fg_color = self.color['main'])
@@ -110,7 +110,7 @@ class App(ctk.CTk):
                                     location = self.location, 
                                     forecast_data = self.forecast_data, 
                                     color = self.color,
-                                    forecast_images = self.forecast_images,
+                                    # forecast_images = self.forecast_images,
                                     animation = self.today_animation)
         
         #* TALL WIDGET
@@ -120,7 +120,7 @@ class App(ctk.CTk):
                                      location = self.location, 
                                      forecast_data = self.forecast_data, 
                                      color = self.color,
-                                     forecast_images = self.forecast_images,
+                                    #  forecast_images = self.forecast_images,
                                      animation = self.today_animation)
 
         #* WIDE WIDGET
@@ -130,7 +130,7 @@ class App(ctk.CTk):
                                      location = self.location, 
                                      forecast_data = self.forecast_data, 
                                      color = self.color,
-                                     forecast_images = self.forecast_images,
+                                    #  forecast_images = self.forecast_images,
                                      animation = self.today_animation)
 
         #* SMALL WIDGET

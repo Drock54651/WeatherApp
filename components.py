@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import datetime, calendar
 from PIL import Image, ImageTk
-from image_widgets import *
+from image_animation import *
 class SimplePanel(ctk.CTkFrame):
     def __init__(self, parent, weather, row, col, color, animation):
         super().__init__(parent, fg_color = color['main'], corner_radius = 0)
@@ -17,7 +17,7 @@ class SimplePanel(ctk.CTkFrame):
         ctk.CTkLabel(temp_frame, text = f'feels like {weather["feels_like"]}\N{DEGREE SIGN}', font  = ctk.CTkFont(family = 'Calibri', size = 16), text_color = color['text']).pack()
         temp_frame.grid(row = 0, column = 0)
 
-        AnimatedImage(self, animation, 0, 1, color['main'])
+        AnimatedImage(self, animation, 0, 1)
 
 class SimpleTallPanel(ctk.CTkFrame):
     def __init__(self, parent, weather_data, location, row, col, color, animation):
@@ -48,7 +48,9 @@ class SimpleTallPanel(ctk.CTkFrame):
                      text_color = color['text']).pack()
 
         #* Animation
-        AnimatedImage(self, animation, 1, 0, color['main'])
+        x, y, width, height = self.grid_bbox(0, 1)
+
+        AnimatedImage(self, animation, 1, 0)
         # weather_image = ctk.CTkImage(Image.open(f"images/{weather_data['weather']}.png"), size = (100,100))
         # ctk.CTkLabel(self, text = '', image  = weather_image).grid(row = 1, column = 0, sticky = 'news')
 
@@ -93,7 +95,7 @@ class DatePanel(ctk.CTkFrame):
                      text_color = color['text']).pack(side = 'right', padx = 10)
 
 class HorizontalForecastPanel(ctk.CTkFrame):
-    def __init__(self, parent, forecast_data, row, col, row_span, divider_color, forecast_images):
+    def __init__(self, parent, forecast_data, row, col, row_span, divider_color):
         super().__init__(parent, fg_color = '#FFF')
         self.grid(row = row, column = col, rowspan = row_span, sticky = 'news', padx = 6, pady = 6)
         
@@ -122,7 +124,7 @@ class HorizontalForecastPanel(ctk.CTkFrame):
                 ctk.CTkFrame(self, fg_color = divider_color, width = 2).pack(side = 'left', fill = 'both')
 
 class VerticalForecastPanel(ctk.CTkFrame):
-    def __init__(self, parent, forecast_data, row, col, divider_color, forecast_images):
+    def __init__(self, parent, forecast_data, row, col, divider_color):
         super().__init__(parent, fg_color = '#FFF')
         self.grid(row = row, column = col, sticky = 'news', padx = 6, pady = 6)
         for index, info in enumerate(forecast_data.items()):

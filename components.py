@@ -3,7 +3,7 @@ import datetime, calendar
 from PIL import Image, ImageTk
 from image_widgets import *
 class SimplePanel(ctk.CTkFrame):
-    def __init__(self, parent, weather, row, col, color):
+    def __init__(self, parent, weather, row, col, color, animation):
         super().__init__(parent, fg_color = color['main'], corner_radius = 0)
         self.grid(row = row, column = col, sticky = 'news')
 
@@ -17,8 +17,10 @@ class SimplePanel(ctk.CTkFrame):
         ctk.CTkLabel(temp_frame, text = f'feels like {weather["feels_like"]}\N{DEGREE SIGN}', font  = ctk.CTkFont(family = 'Calibri', size = 16), text_color = color['text']).pack()
         temp_frame.grid(row = 0, column = 0)
 
+        AnimatedImage(self, animation, 0, 1, color['main'])
+
 class SimpleTallPanel(ctk.CTkFrame):
-    def __init__(self, parent, weather_data, location, row, col, color):
+    def __init__(self, parent, weather_data, location, row, col, color, animation):
         super().__init__(parent, fg_color = color['main'])
         self.grid(row = row, column = col, sticky = 'news')
 
@@ -44,10 +46,11 @@ class SimpleTallPanel(ctk.CTkFrame):
                      text = f'{weekday[:3]}, {day}{suffix} {calendar.month_name[month]}',
                      font  = ctk.CTkFont(family = 'Calibri', size = 20),
                      text_color = color['text']).pack()
-        
-        #* WEATHER IMAGE FRAME
-        weather_image = ctk.CTkImage(Image.open(f"images/{weather_data['weather']}.png"), size = (100,100))
-        ctk.CTkLabel(self, text = '', image  = weather_image).grid(row = 1, column = 0, sticky = 'news')
+
+        #* Animation
+        AnimatedImage(self, animation, 1, 0, color['main'])
+        # weather_image = ctk.CTkImage(Image.open(f"images/{weather_data['weather']}.png"), size = (100,100))
+        # ctk.CTkLabel(self, text = '', image  = weather_image).grid(row = 1, column = 0, sticky = 'news')
 
 
         #* TEMP FRAME
@@ -62,7 +65,6 @@ class SimpleTallPanel(ctk.CTkFrame):
                      text = f'feels like: {weather_data["feels_like"]}\N{DEGREE SIGN}', 
                      font = ctk.CTkFont(family = 'Calibri', size = 16),
                      text_color = color['text']).pack()
-
 
 class DatePanel(ctk.CTkFrame):
     def __init__(self, parent, location, row, col, color):

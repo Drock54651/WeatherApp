@@ -5,7 +5,7 @@ from components import *
 #! Depending on size, layout and information shown will be different
 
 class SmallWidget(CTkFrame):
-    def __init__(self, parent, current_data, location, color):
+    def __init__(self, parent, current_data, location, color, animation):
         super().__init__(parent, fg_color = 'transparent')
 
         self.pack(expand = True, fill = 'both')
@@ -16,12 +16,12 @@ class SmallWidget(CTkFrame):
         self.columnconfigure(0, weight = 1, uniform = 'a')
 
         #* WIDGETS
-        SimplePanel(self, current_data, 0, 0, color)
+        SimplePanel(self, current_data, 0, 0, color, animation)
         DatePanel(self, location, row = 1, col = 0, color = color)
 
 
 class WideWidget(CTkFrame):
-    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images):
+    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images, animation):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
 
@@ -32,12 +32,12 @@ class WideWidget(CTkFrame):
         self.columnconfigure(1, weight = 2, uniform = 'a') 
 
         #* WIDGETS
-        SimplePanel(self, current_data, 0, 0, color)
+        SimplePanel(self, current_data, 0, 0, color, animation)
         DatePanel(self, location, row = 1, col = 0, color = color)
         HorizontalForecastPanel(self, forecast_data, 0, 1, 2, color['divider color'], forecast_images) #! row, col, rowspan for the #s
 
 class TallWidget(CTkFrame):
-    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images):
+    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images, animation):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
 
@@ -48,10 +48,10 @@ class TallWidget(CTkFrame):
 
         #* WIDGET
         HorizontalForecastPanel(self, forecast_data, 1, 0, 1, color['divider color'], forecast_images)
-        SimpleTallPanel(self, current_data, location, 0, 0, color)
+        SimpleTallPanel(self, current_data, location, 0, 0, color, animation)
 
 class MaxWidget(CTkFrame):
-    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images):
+    def __init__(self, parent, current_data, forecast_data, location, color, forecast_images, animation):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
         
@@ -60,5 +60,5 @@ class MaxWidget(CTkFrame):
         self.columnconfigure((0,1), weight = 1, uniform = 'a')
 
         #* WIDGETS
-        SimpleTallPanel(self, current_data, location, 0, 0, color)
+        SimpleTallPanel(self, current_data, location, 0, 0, color, animation)
         VerticalForecastPanel(self, forecast_data, 0, 1, color['divider color'], forecast_images)

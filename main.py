@@ -23,7 +23,7 @@ class App(ctk.CTk):
     def __init__(self, current_data, forecast_data, city, country):
 
         self.current_data = current_data
-        print(self.current_data)
+        # print(self.current_data)
         self.forecast_data = forecast_data
         self.location = {'city': city, 'country': country}
         self.color = WEATHER_DATA[current_data['weather']]
